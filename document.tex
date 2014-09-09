@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt]{scrartcl}
+\documentclass[a4paper,11pt,DIV=25]{scrartcl}
 
 \usepackage[utf8x]{inputenc}
 \usepackage[ngerman]{babel}
@@ -60,7 +60,7 @@ of the query-string for IRIs.
 
 \subsection{Examples}
 
-\begin{tabular}{p{.1\textwidth}p{.2\textwidth}p{.7\textwidth}}
+\begin{tabularx}{\textwidth}{p{.1\textwidth}p{.2\textwidth}p{.7\textwidth}}
   \textit{Distributed Ontology} & & \\
   \hline
   & Distributed Ontology & \url{http://ontohub.org/dol-testing/double_mapped_blendoid}\\
@@ -76,7 +76,13 @@ of the query-string for IRIs.
   & Mapping & \url{http://ontohub.org/default/pizza?SomeMapping}\\
   & Symbol & \url{http://ontohub.org/default/pizza??KitchenTable}\\
   & Sentence & \url{http://ontohub.org/default/pizza??Ax02}\\
-\end{tabular}
+\end{tabularx}
+
+\subsection{Conflicts in Names}
+
+Technically the loc/id of a symbol and a sentence could conflict. Additionally
+names of single ontologies in distributed ontologies (child-ontology) could
+conflict with mappings.
 
 \subsection{Benefits and Disadvantages}
 
