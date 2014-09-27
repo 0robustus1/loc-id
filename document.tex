@@ -57,7 +57,7 @@ actual identifying portion beginning with the hierarchical forward slash
 \subsection{qualified loc/id structure}
 
 \begin{enumerate}
-  \item Set of Schema + FQDNs + Port for an instance: \textbf{INSTANCE}, e.g.
+  \item Set of Schema + FQDNs + Port for an instance: \textbf{INSTANCE}, e.g.\\
     \{ \url{http://localhost:3000}, \url{http://localhost:9001}, \url{http://ontohub.dev} \}
   \item Identifying portion loc/id with leading forward slash (\textit{/})
 \end{enumerate}
@@ -111,11 +111,11 @@ member. This could look like this:
     \end{itemize}
   \item File: \url{/default/tree/some_directory/some_child_dir/Foo.txt}
     \begin{itemize}
-      \item applies to HEAD commit of main branch (currently always \textit{master}
+      \item applies to HEAD commit of main branch (currently always \textit{master})
     \end{itemize}
-  \item File at reference: \url{/treeref/\{ref\}/default/tree/some_directory/some_child_dir/Foo.txt}
+  \item File at reference: \url{/treeref/{REF}/default/tree/some_directory/some_child_dir/Foo.txt}
     \begin{itemize}
-      \item where \{ref\} is any of the above possible ref-types: Version, Commit, Branch or Date
+      \item where \{REF\} is any of the above possible ref-types: Version, Commit, Branch or Date
     \end{itemize}
 \end{itemize}
 
