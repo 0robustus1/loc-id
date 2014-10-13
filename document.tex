@@ -9,7 +9,7 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \author{Tim Reddehase}
-\date{2014-10-10}
+\date{2014-10-13}
 
 \newenvironment{oitemize}{%
   \renewcommand{\labelitemii}{$\bullet$}%
@@ -115,5 +115,16 @@ but will be supported.
       \item where \{REF\} is any of the above possible ref-types: Version, Commit, Branch or Date
     \end{itemize}
 \end{itemize}
+
+\section{Disambiguating}
+
+If the \url{path/to/an-ontology} can actually also be a path to a directory  --
+which would be possible if there were a directory named \textbf{pizza} and an
+ontology named \textbf{pizza.owl} -- will the loc/id be resolved to a
+disambiguating page. On this page will be a link to the tree for the directory
+and a link to a \url{/ref/master/} qualified version of the ontology.
+
+If however the loc/id is requested with a \textit{text/plain} content type we
+will always serve the ontology.
 
 \end{document}
