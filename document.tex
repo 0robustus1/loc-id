@@ -64,8 +64,11 @@ actual identifying portion beginning with the hierarchical forward slash
     \item The identifying portion is split into two parts.
     \item \textbf{HIERARCHY}: is the \url{path/to/ontology-file}, with elements split
       by a forward slash (\textit{/}).
-    \item \textbf{MEMBER:} is the element of the ontology in the specific position, with
-       being split by two forward slashes (\textit{//}).
+    \item \textbf{MEMBER:} is the element of the ontology at the specific
+      position. It is being separated from the \textbf{HIERARCHY} by two
+      forward slashes (\textit{//}). These forward slashes are also being used
+      to separate members inside of \textbf{MEMBER} (e.g. in the case of a
+      child-ontology which contains a symbol).
   \end{itemize}
 \end{enumerate}
 
