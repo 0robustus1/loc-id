@@ -138,12 +138,13 @@ but will be supported.
 
 \section{Specification}
 
-We can specify qualified loc/id IRIs as a special case of RFC 3987 (IRI).
-Code-excerpt \ref{lst:loc-id-spec} on page \pageref{lst:loc-id-spec} contains this
-specification in Augmented Backus-Naur Form (ABNF). We use ABNF here, because
-RFC 3987 itself specifies IRIs using ABNF and we wanted to be able to reference
-rules from the RFC in our specification. Such rules can be easily identified
-by the \texttt{i}-prefix that was used when writing the IRI-rules.
+We can specify qualified loc/id IRIs as a special case of RFC 3987 (IRI,
+\cite{rfc3987}). Code-excerpt \ref{lst:loc-id-spec} on page
+\pageref{lst:loc-id-spec} contains this specification in Augmented Backus-Naur
+Form (ABNF). We use ABNF here, because RFC 3987 itself specifies IRIs using
+ABNF and we wanted to be able to reference rules from the RFC in our
+specification. Such rules can be easily identified by the \texttt{i}-prefix
+that was used when writing the IRI-rules.
 
 \begin{figure}[b]
   \centering
@@ -188,5 +189,8 @@ and a link to a \url{/ref/master/} qualified version of the ontology.
 
 If however the loc/id is requested with a \emph{text/plain} content type we
 will always serve the ontology.
+
+\bibliographystyle{ieeetr}
+\bibliography{rfc}
 
 \end{document}
