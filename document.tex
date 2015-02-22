@@ -155,7 +155,18 @@ that was used when writing the IRI-rules.
 \end{figure}
 
 
-\section{Other loc/id based IRIs}
+\section{ref/ special form loc/ids}
+
+There is one additional syntax-element that we haven't covered yet.  One of the
+main feature Ontohub provides in its role as an \emph{Open Ontology Repository}
+is versioning of ontologies by backing the repositories with git. It is quite
+important that we can access such versions and other related files inside of a
+repository, which can be basically viewed as a directory in a filesystem.
+\texttt{ref/}-style IRIs accomplish this task.
+
+The \texttt{ref/\emph{argument}}-form is a prefix of the \textbf{HIERARCHY},
+\textbf{MEMBER} and \textbf{COMMAND} components -- otherwise referred to as
+unqualified loc/id, or in short: loc/id.
 
 \begin{itemize}
   \item Version: \url{/ref/2/default/pizza//SomeMapping}
@@ -169,6 +180,11 @@ that was used when writing the IRI-rules.
     \begin{itemize}
       \item allows the use of fully compliant MMT-style
     \end{itemize}
+\end{itemize}
+
+\subsection{References inside of the tree}
+
+\begin{itemize}
   \item File: \url{/tree/default/some_directory/some_child_dir/Foo.txt}
     \begin{itemize}
       \item applies to HEAD commit of main branch (currently always \emph{master})
