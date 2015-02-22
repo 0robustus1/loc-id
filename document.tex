@@ -1,15 +1,42 @@
 \documentclass[a4paper,11pt,DIV=22]{scrartcl}
 
 \usepackage[utf8x]{inputenc}
-\usepackage[ngerman]{babel}
+% \usepackage[ngerman]{babel}
 \usepackage{longtable}
+\usepackage{listings}
 %\usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{amsmath}
 \usepackage{hyperref}
+
+\lstset{ %
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  % commentstyle=\color{mygreen},    % comment style
+  % deletekeywords={...},            % if you want to delete keywords from the given language
+  % escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  % keywordstyle=\color{blue},       % keyword style
+  % morekeywords={*,...},            % if you want to add more keywords to the set
+  % numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  % numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  % rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  % showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  % showstringspaces=false,          % underline spaces within strings only
+  % showtabs=false,                  % show tabs within strings adding particular underscores
+  % stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  % stringstyle=\color{mymauve},     % string literal style
+  % tabsize=2,                       % sets default tabsize to 2 spaces
+  % title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
 \author{Tim Reddehase}
-\date{2014-10-13}
+\date{2015-02-22}
 
 \newenvironment{oitemize}{%
   \renewcommand{\labelitemii}{$\bullet$}%
@@ -21,7 +48,7 @@
 
 \Huge
 \begin{center}
-  Ontohub loc/id\\
+  Ontohub loc/id (v2, Draft)\\
   \bigskip
   \includegraphics[width=0.3\textwidth]{ontohub-loc_id-logo.pdf}
 \end{center}
@@ -29,7 +56,7 @@
 
 \bigskip
 
-\section{Idea}
+\section{Concept}
 
 Generally an Ontohub loc/id (locator/identifier) is just an IRI of an ontology
 or one of its members (symbols, sentences, mappings, child-ontologies). However
@@ -38,13 +65,22 @@ ontology.  We try to infer them from the path of the repository, the path of
 the ontology and the specific name. Additionally we ensure that this specific
 IRI is actually a locator and not \emph{just} an identifier.
 
+This is quite important as the IRI of an ontology is the general starting
+interface a user has with the given ontology. When she evaluates the ontology
+in her tool of choice she'll use the IRI to reference the given ontology. When
+she wants to work on ontohub with the given ontology she'll point her browser
+at the given IRI. As one familiarity with the Ontohub application increases one
+will more often want to use the IRI instead of just searching or even browsing
+for something.  This is further intensified if the IRI-schema follows a schema
+that is easily understood by a user.
+
 \section{Ontohub-Style}
 
 Identifying Ontologies and their members in Ontohub is a hierarchical task. An
 ontology belongs to a repository and a child-ontology belongs to a parent
 ontology. Mappings, symbols and sentences in turn belong to a ontology. So we
-should/could perfectly use the hierarchical portion of an IRI instead of the
-query string. This would mean using a forward slash (\emph{/}) as separator.
+could use the hierarchical portion of an IRI instead of the query string.
+This would means using a forward slash (\emph{/}) as separator.
 
 Ontohub loc/ids are specific to an instance of the Ontohub-Application. However
 such an instance might be reachable via multiple multiple FQDNs (fully
@@ -62,13 +98,18 @@ actual identifying portion beginning with the hierarchical forward slash
   \item Identifying portion loc/id with leading forward slash (\emph{/})
   \begin{itemize}
     \item The identifying portion is split into two parts.
-    \item \textbf{HIERARCHY}: is the \url{path/to/ontology-file}, with elements split
-      by a forward slash (\emph{/}).
+    \item \textbf{HIERARCHY}: is the \url{path/to/ontology-file}, with elements
+      split by a forward slash (\emph{/}).
     \item \textbf{MEMBER:} is the element of the ontology at the specific
       position. It is being separated from the \textbf{HIERARCHY} by two
-      forward slashes (\emph{//}). These forward slashes are also being used
-      to separate members inside of \textbf{MEMBER} (e.g. in the case of a
+      forward slashes (\emph{//}). These forward slashes are also being used to
+      separate members inside of \textbf{MEMBER} (e.g. in the case of a
       child-ontology which contains a symbol).
+    \item \textbf{COMMAND}: is not really an element or part of an ontology,
+      but a command the users wishes to execute on the element selected by the
+      previous sections of the loc/id. It is denoted and separated from the
+      rest of the IRI by the use of three consecutive forward slashes
+      (\emph{///}).
   \end{itemize}
 \end{enumerate}
 
@@ -92,8 +133,26 @@ actual identifying portion beginning with the hierarchical forward slash
   & Sentence & \url{/default/pizza//Ax02}\\
 \end{tabularx}
 
-Fully qualified symbols (e.g. /sym/$+:NatxNat->Nat$) will need to be escaped
+Fully qualified symbols (e.g. $+:NatxNat->Nat$) will need to be escaped
 but will be supported.
+
+\section{Specification}
+
+We can specify qualified loc/id IRIs as a special case of RFC 3987 (IRI).
+Code-excerpt \ref{lst:loc-id-spec} on page \pageref{lst:loc-id-spec} contains this
+specification in Augmented Backus-Naur Form (ABNF). We use ABNF here, because
+RFC 3987 itself specifies IRIs using ABNF and we wanted to be able to reference
+rules from the RFC in our specification. Such rules can be easily identified
+by the \texttt{i}-prefix that was used when writing the IRI-rules.
+
+\begin{figure}[b]
+  \centering
+  \lstinputlisting{loc_id.abnf}
+  \caption[loc/id specification in ABNF]
+   {Specification of loc/id IRIs in ABNF}
+  \label{lst:loc-id-spec}
+\end{figure}
+
 
 \section{Other loc/id based IRIs}
 
