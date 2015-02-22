@@ -157,8 +157,8 @@ that was used when writing the IRI-rules.
 
 \section{ref/ special form loc/ids}
 
-There is one additional syntax-element that we haven't covered yet.  One of the
-main feature Ontohub provides in its role as an \emph{Open Ontology Repository}
+There is one additional syntax-element that we haven't covered yet. One of the
+main features that Ontohub provides in its role as an \emph{Open Ontology Repository}
 is versioning of ontologies by backing the repositories with git. It is quite
 important that we can access such versions and other related files inside of a
 repository, which can be basically viewed as a directory in a filesystem.
@@ -178,11 +178,21 @@ unqualified loc/id, or in short: loc/id.
     \end{itemize}
   \item MMT: \url{/ref/mmt/default/pizza??SomeMapping}
     \begin{itemize}
-      \item allows the use of fully compliant MMT-style
+      \item Does not refer to a specifically designated version of the element,
+        but always refers to the current one instead. This version allows to
+        use MMT-style IRIs, which should guarantee basic support for tools
+        which expect the MMT-style.
     \end{itemize}
 \end{itemize}
 
 \subsection{References inside of the tree}
+
+Additionally we need to provide a way to reference files inside a repository,
+This especially applies to files that do not represent ontologies. This
+will be accomplished by the \texttt{tree/} special form. Additionally
+we will support a \texttt{treeref} special form which allows to reference
+a specific version of a files using the \emph{Commit}, \emph{Branch} and
+\emph{Date} references. MMT is for obvious reasons not supported.
 
 \begin{itemize}
   \item File: \url{/tree/default/some_directory/some_child_dir/Foo.txt}
@@ -191,7 +201,7 @@ unqualified loc/id, or in short: loc/id.
     \end{itemize}
   \item File at reference: \url{/treeref/{REF}/default/tree/some_directory/some_child_dir/Foo.txt}
     \begin{itemize}
-      \item where \{REF\} is any of the above possible ref-types: Version, Commit, Branch or Date
+      \item where \{REF\} is any of the above possible ref-types: Commit, Branch or Date
     \end{itemize}
 \end{itemize}
 
@@ -200,11 +210,19 @@ unqualified loc/id, or in short: loc/id.
 If the \url{path/to/an-ontology} can actually also be a path to a directory  --
 which would be possible if there were a directory named \textbf{pizza} and an
 ontology named \textbf{pizza.owl} -- will the loc/id be resolved to a
-disambiguating page. On this page will be a link to the tree for the directory
-and a link to a \url{/ref/master/} qualified version of the ontology.
+disambiguating page.
+
+This page will contain a link to the tree for the directory, e.g.
+\url{/tree/default/pizza}, and a link to a \texttt{ref/} special form
+version of the ontology, e.g. \url{/ref/master/default/pizza}.
 
 If however the loc/id is requested with a \emph{text/plain} content type we
-will always serve the ontology.
+will always serve the ontology. This is in part because there is no reasonable
+representation of a directory that we would want to support. Another reason is
+that Ontohub serves ontologies as its main objects. And as \emph{text/plain} is
+the MIME-type that was chosen to always return the textual content of an
+ontologies (the raw file), we will need to serve that, even if the loc/id would
+be ambiguous in a normal request.
 
 \bibliographystyle{ieeetr}
 \bibliography{rfc}
