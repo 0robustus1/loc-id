@@ -97,19 +97,19 @@ actual identifying portion beginning with the hierarchical forward slash
 \subsection{qualified loc/id structure}
 
 \begin{enumerate}
-  \item Set of Schema + FQDNs + Port for an instance: \textbf{INSTANCE}, e.g.\\
+  \item Set of Schema + FQDNs + Port for an instance: \emph{INSTANCE}, e.g.\\
     \{ \url{http://localhost:3000}, \url{http://localhost:9001}, \url{http://ontohub.dev} \}
   \item Identifying portion loc/id with leading forward slash (\emph{/})
   \begin{itemize}
     \item The identifying portion is split into three parts.
-    \item \textbf{HIERARCHY}: is the \url{path/to/ontology-file}, with elements
+    \item \emph{HIERARCHY}: is the \url{path/to/ontology-file}, with elements
       split by a forward slash (\emph{/}).
-    \item \textbf{MEMBER:} is the element of the ontology at the specific
-      position. It is being separated from the \textbf{HIERARCHY} by two
+    \item \emph{MEMBER}: is the element of the ontology at the specific
+      position. It is being separated from the \emph{HIERARCHY} by two
       forward slashes (\emph{//}). These forward slashes are also being used to
-      separate members inside of \textbf{MEMBER} (e.g. in the case of a
+      separate members inside of \emph{MEMBER} (e.g. in the case of a
       child-ontology which contains a symbol).
-    \item \textbf{COMMAND}: is not really an element or part of an ontology,
+    \item \emph{COMMAND}: is not really an element or part of an ontology,
       but a command the users wishes to execute on the element selected by the
       previous sections of the loc/id. It is denoted and separated from the
       rest of the IRI by the use of three consecutive forward slashes
@@ -152,7 +152,7 @@ the \texttt{i}-prefix that was used when writing the IRI-rules.
 
 \texttt{<Loc-Id-IRI>} represents the start rule for a qualified loc/id and
 \texttt{<Loc-Id>} would be the starting non-terminal for a loc/id without its
-\textbf{INSTANCE} qualifier. The following symbols are non-terminal symbols that
+\emph{INSTANCE} qualifier. The following symbols are non-terminal symbols that
 represent rules from the IRI-RFC.
 
 \begin{itemize}
@@ -185,8 +185,8 @@ important that we can access such versions and other related files inside of a
 repository, which can be basically viewed as a directory in a filesystem.
 \texttt{ref/}-style IRIs accomplish this task.
 
-The \texttt{ref/\emph{argument}}-form is a prefix of the \textbf{HIERARCHY},
-\textbf{MEMBER} and \textbf{COMMAND} components -- otherwise referred to as
+The \texttt{ref/\emph{argument}}-form is a prefix of the \emph{HIERARCHY},
+\emph{MEMBER} and \emph{COMMAND} components -- otherwise referred to as
 unqualified loc/id, or in short: loc/id.
 
 \begin{itemize}
